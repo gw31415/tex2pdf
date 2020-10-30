@@ -92,12 +92,11 @@ func main() {
 			body_bin := stdout.Bytes()
 			body_str := (*(*string)(unsafe.Pointer(&body_bin)))
 			if tar_dl_data.Len() == 0 {
-				body_str = strings.TrimLeft(body_str, "!")
-				j := strings.Index(body_str, "No pages of output.")
-				if j == -1 {
+				i := strings.Index(body_str, "!")
+				if i == -1 {
 					panic(body_str)
 				}
-				panic(body_str[:j])
+				panic(body_str[i:])
 			}
 			panic(err)
 		}
@@ -111,12 +110,11 @@ func main() {
 	body_bin := stdout.Bytes()
 	body_str := (*(*string)(unsafe.Pointer(&body_bin)))
 	if tar_dl_data.Len() == 0 {
-		body_str = strings.TrimLeft(body_str, "!")
-		j := strings.Index(body_str, "No pages of output.")
-		if j == -1 {
+		i := strings.Index(body_str, "!")
+		if i == -1 {
 			panic(body_str)
 		}
-		panic(body_str[:j])
+		panic(body_str[i:])
 	}
 	pdf_data := bytes.NewBuffer([]byte{})
 	tar_reader := tar.NewReader(tar_dl_data)
